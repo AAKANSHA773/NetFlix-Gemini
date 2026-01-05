@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import lang from "../utils/languageConstants";
 import { useDispatch, useSelector } from "react-redux";
 import { geminiModel } from "../utils/geminiAl";
@@ -9,10 +9,11 @@ const GptSearchBar = () => {
   const langKey = useSelector((store) => store.config.lang);
   const searchText = useRef(null);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const searchMoviesTMDB = async (movie) => {
     const data = await fetch(
-      "https://api.themoviedb.org/3/search/movie?query= " +
+      "https://api.themoviedb.org/3/search/movie?query=" +
         movie +
         "&include_adult=false&language=en-US&page=1",
       API_OPTION
@@ -22,34 +23,48 @@ const GptSearchBar = () => {
   };
 
   const hanldeGptSearchClick = async () => {
-    const query = searchText.current.value;
+    if (!searchText.current.value.trim()) return;
 
-    const prompt = `You are a movie recommendation system.
-                  Suggest exactly 5 movies for the query: "
-                  ${query}"
-                  Only return movie names, comma-separated.`;
+    try {
+      setLoading(true);
 
-    const result = await geminiModel.generateContent(prompt);
-    const response = await result.response;
-    const geminiMovies = response
-      .text()
-      .split(",")
-      .map((m) => m.trim());
+      const query = searchText.current.value;
 
-    const arrayData = geminiMovies.map((movie) => searchMoviesTMDB(movie));
-    const tmdbResults = await Promise.all(arrayData);
+      const prompt = `You are a movie recommendation system.
+      Suggest exactly 5 movies for the query: "${query}"
+      Only return movie names, comma-separated.`;
 
-    const exactlyMatches = tmdbResults.map((movie, index) => {
-      const movieNAme = geminiMovies[index].toLowerCase();
-      return movie.find((m) => m.title?.toLowerCase() === movieNAme);
-    });
-    
-    dispatch(
-      addGeminiMoviesResults({
-        movieNames: geminiMovies,
-        movieResults: exactlyMatches.map(m => m ? [m] : []),
-      })
-    );
+      const result = await geminiModel.generateContent(prompt);
+      const response = await result.response;
+
+      const geminiMovies = response
+        .text()
+        .split(",")
+        .map((m) => m.trim());
+
+      const arrayData = geminiMovies.map((movie) =>
+        searchMoviesTMDB(movie)
+      );
+      const tmdbResults = await Promise.all(arrayData);
+
+      const exactlyMatches = tmdbResults.map((movie, index) => {
+        const movieName = geminiMovies[index].toLowerCase();
+        return movie.find(
+          (m) => m.title?.toLowerCase() === movieName
+        );
+      });
+
+      dispatch(
+        addGeminiMoviesResults({
+          movieNames: geminiMovies,
+          movieResults: exactlyMatches.map((m) => (m ? [m] : [])),
+        })
+      );
+    } catch (error) {
+      console.error("GPT Search failed:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -60,15 +75,22 @@ const GptSearchBar = () => {
       >
         <input
           ref={searchText}
-          className=" p-4 m-4 col-span-9"
+          className="p-4 m-4 col-span-9"
           type="text"
           placeholder={lang[langKey].gptSearchPlaceHolder}
+          disabled={loading}
         />
+
         <button
-          className="col-span-3 m-4 py-2 px-4 bg-red-700 text-white rounded-lg"
+          className={`col-span-3 m-4 py-2 px-4 text-white rounded-lg ${
+            loading
+              ? "bg-gray-600 cursor-not-allowed"
+              : "bg-red-700"
+          }`}
           onClick={hanldeGptSearchClick}
+          disabled={loading}
         >
-          {lang[langKey].search}
+          {loading ? "Searching..." : lang[langKey].search}
         </button>
       </form>
     </div>
