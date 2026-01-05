@@ -50,7 +50,7 @@ const Login = () => {
            
             })
             .catch((error) => {
-              setErrorMessage(error.m);
+              setErrorMessage(error.message);
             });
       
         })
@@ -66,7 +66,7 @@ const Login = () => {
         password.current.value
       )
         .then((userCredential) => {
-          const user = userCredential.user;
+          // const user = userCredential.user;
       
         })
         .catch((error) => {
