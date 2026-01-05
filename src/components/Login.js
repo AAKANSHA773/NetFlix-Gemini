@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import  { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
 import {
@@ -9,7 +9,7 @@ import {
 import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { BACKGROUNDIMAGE, USERAVTAR, UserImage } from "../utils/constant";
+import { BACKGROUNDIMAGE, USERAVTAR } from "../utils/constant";
 
 const Login = () => {
   const [isSigInFrom, setSignInFrom] = useState(true);

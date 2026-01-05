@@ -1,4 +1,4 @@
-import React from "react";
+
 import { IMAGECDNURL } from "../utils/constant";
 import { setSelectedMovie } from "../utils/movieSLice";
 import { useDispatch } from "react-redux";
@@ -13,7 +13,7 @@ const MovieCart = ({movie, posterPath }) => {
 
   return (
     <div
-      className="w-36 md:w-48 pr-4"
+      className="w-36 md:w-48 pr-4 cursor-pointer"
       onClick={() => {
         console.log("clicked");
         handleSelectedMovie();

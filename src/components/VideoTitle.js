@@ -1,4 +1,3 @@
-import React from 'react'
 
 const VideoTitle = ({overview,original_title}) => {
   return (

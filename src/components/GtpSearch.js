@@ -1,4 +1,4 @@
-import React from 'react'
+
 import GptSearchBar from './GptSearchBar'
 import GtpMovieSuggestion from './GtpMovieSuggestion'
 import { BACKGROUNDIMAGE } from '../utils/constant'

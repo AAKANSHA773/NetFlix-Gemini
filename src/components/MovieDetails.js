@@ -1,4 +1,3 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IMAGECDNURL } from "../utils/constant";
 import { closeMoviePopup } from "../utils/movieSLice";
