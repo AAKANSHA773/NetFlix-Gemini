@@ -47,7 +47,7 @@ const Header = () => {
     });
     // unsubscribed when component unmount
     return () => unsubscribed();
-  }, [dispatch,navigate]);
+  }, []);
 
   const handlGtpSearchClick = () => {
     dispatch(toggleGptSearchView());
