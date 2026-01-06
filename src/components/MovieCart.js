@@ -13,13 +13,25 @@ const MovieCart = ({movie, posterPath }) => {
 
   return (
     <div
-      className="w-36 md:w-48 pr-4 cursor-pointer"
+     
+  className="
+    min-w-[120px] md:min-w-[150px]
+    cursor-pointer
+    transition-transform duration-300
+    hover:scale-105
+  "
+
+
       onClick={() => {
         console.log("clicked");
         handleSelectedMovie();
       }}
     >
-      <img alt="Movie Card" src={IMAGECDNURL + posterPath} />
+       <img
+  className="rounded-md"
+  src={IMAGECDNURL + posterPath}
+  alt="Movie"
+/>
     </div>
   );
 };

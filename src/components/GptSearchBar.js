@@ -67,34 +67,57 @@ const GptSearchBar = () => {
     }
   };
 
-  return (
-    <div className="pt-[35%] md:pt-[10%] flex justify-center">
-      <form
-        className="w-full md:w-1/2 bg-black grid grid-cols-12"
-        onSubmit={(e) => e.preventDefault()}
-      >
-        <input
-          ref={searchText}
-          className="p-4 m-4 col-span-9"
-          type="text"
-          placeholder={lang[langKey].gptSearchPlaceHolder}
-          disabled={loading}
-        />
+ return (
+  <div className="flex justify-center pt-28 px-4">
+    <form
+      onSubmit={(e) => e.preventDefault()}
+      className="
+        w-full md:w-2/5
+        bg-[#1f1f1f]
+        border border-gray-700
+        rounded-xl
+        shadow-xl
+        flex items-center
+        p-2
+        gap-2
+      "
+    >
+      <input
+        ref={searchText}
+        type="text"
+        placeholder={lang[langKey].gptSearchPlaceHolder}
+        disabled={loading}
+        className="
+          flex-1
+          bg-white
+          text-black
+          placeholder-gray-500
+          px-4 py-3
+          rounded-lg
+          outline-none
+        "
+      />
 
-        <button
-          className={`col-span-3 m-4 py-2 px-4 text-white rounded-lg ${
+      <button
+        onClick={hanldeGptSearchClick}
+        disabled={loading}
+        className={`
+          px-6 py-3
+          rounded-lg
+          font-semibold
+          text-white
+          transition
+          ${
             loading
-              ? "bg-gray-600 cursor-not-allowed"
-              : "bg-red-700"
-          }`}
-          onClick={hanldeGptSearchClick}
-          disabled={loading}
-        >
-          {loading ? "Searching..." : lang[langKey].search}
-        </button>
-      </form>
-    </div>
-  );
-};
-
+              ? "bg-gray-500 cursor-not-allowed"
+              : "bg-red-600 hover:bg-red-700"
+          }
+        `}
+      >
+        {loading ? "Searching..." : "Search"}
+      </button>
+    </form>
+  </div>
+);
+}
 export default GptSearchBar;
