@@ -55,7 +55,7 @@ const Header = () => {
 
   const handleLanguageChange = (e) => dispatch(changeLanguage(e.target.value));
   return (
-  <header className="fixed top-0 z-50 w-full bg-gradient-to-b from-black/90 to-black/60 backdrop-blur-md">
+  <header className="fixed top-0 z-50 w-full bg-gradient-to-b from-black/80 to-black/10">
     <div className="flex items-center justify-between px-4 py-3 md:px-8">
 
       {/* Logo */}

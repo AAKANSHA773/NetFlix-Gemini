@@ -27,11 +27,14 @@ const MovieCart = ({movie, posterPath }) => {
         handleSelectedMovie();
       }}
     >
-       <img
-  className="rounded-md"
-  src={IMAGECDNURL + posterPath}
-  alt="Movie"
-/>
+    <div className="cursor-pointer transition hover:scale-105">
+  <img
+    className="rounded-md w-full"
+    src={IMAGECDNURL + posterPath}
+    alt={movie.title}
+  />
+</div>
+
     </div>
   );
 };

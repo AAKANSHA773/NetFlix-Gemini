@@ -93,7 +93,7 @@ const Login = () => {
       <div className="relative z-10 min-h-screen flex items-center justify-center">
         <form
           onSubmit={(e) => e.preventDefault()}
-            className="w-full md:w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0 text-white rounded-lg bg-opacity-80"
+            className="w-full md:w-3/12 absolute p-8 bg-black my-30 mx-auto right-0 left-0 text-white rounded-lg bg-opacity-80"
       >
           <h1 className="font-blod text-3xl py-2 ml-4">
             {isSigInFrom ? "Sign In" : "Sign Up"}
@@ -122,7 +122,7 @@ const Login = () => {
             {errorMessage}
           </p>
           <button
-            className="bg-red-700 p-2 m-4 w-full rounded"
+            className="bg-red-700 p-2 m-2 w-full rounded"
             onClick={handleButtonClick}
           >
             {isSigInFrom ? "Sign In" : "Sign Up"}
